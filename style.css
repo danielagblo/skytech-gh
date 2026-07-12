@@ -13,6 +13,7 @@ body {
 body,
 .sheet {
   background-image: url("./assets/bg.png");
+  background-attachment: fixed;
 }
 
 main {
