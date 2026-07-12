@@ -15,7 +15,7 @@ export default async function handler(req, res) {
     // 2. Prepare the Arkesel API Request
     const arkeselUrl = "https://api.arkesel.com/sms/send";
     const payload = {
-      sender: "SkyTech", // Use your approved Arkesel Sender ID
+      sender: process.env.ARKESEL_SENDER_ID, // Use your approved Arkesel Sender ID
       message: `Hi ${name}, we've received your interest. Our team will reply on WhatsApp shortly. - SkyTech Ghana`,
       recipients: [phone],
     };
