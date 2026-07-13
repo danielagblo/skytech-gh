@@ -43,9 +43,7 @@ export default async function handler(req, res) {
     const data = await response.text();
 
     // 6. Send success back to the website
-    return res
-      .status(200)
-      .json({ success: true, message: "SMS triggered", data });
+    return res.status(200).json({ success: true, message: "SMS triggered" });
   } catch (error) {
     console.error("Server Error:", error);
     return res
