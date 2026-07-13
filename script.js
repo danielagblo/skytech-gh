@@ -60,7 +60,7 @@ document.getElementById("waForm").addEventListener("submit", function (e) {
   // 1. Gather ALL form variables
   const name = document.querySelector('input[name="name"]').value;
   const phone = document.querySelector('input[name="phone"]').value;
-  const email = document.querySelector('input[name="email"]').value;
+  // const email = document.querySelector('input[name="email"]').value;
 
   const meeting =
     document.querySelector('input[name="meeting"]:checked')?.value ||
@@ -97,7 +97,7 @@ document.getElementById("waForm").addEventListener("submit", function (e) {
     `- *Package:* ${pkgTitle} (${pkgPrice})\n` +
     `- *Name:* ${name}\n` +
     `- *Phone:* ${phone}\n` +
-    `- *Email:* ${email}\n` +
+    // `- *Email:* ${email}\n` +
     `- *Meeting:* ${meeting}\n` +
     `- *Office:* ${office}\n` +
     `- *Timeline:* ${timeline}\n` +
@@ -113,7 +113,7 @@ document.getElementById("waForm").addEventListener("submit", function (e) {
     body: JSON.stringify({
       name,
       phone,
-      email,
+      // email,
       package: pkgTitle,
       meeting,
       office,
