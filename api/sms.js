@@ -33,7 +33,7 @@ export default async function handler(req, res) {
 
     // 4. Send the request to Arkesel using native fetch
     const response = await fetch(arkeselUrl.toString(), {
-      method: "POST",
+      method: "GET",
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
       },
