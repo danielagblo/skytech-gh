@@ -1,6 +1,5 @@
 // api/sms.js
-// We import node-fetch to ensure it doesn't crash on Vercel
-import fetch from "node-fetch";
+// We are using Vercel's native fetch (no external library needed)
 
 export default async function handler(req, res) {
   // 1. Only accept POST requests
@@ -16,13 +15,13 @@ export default async function handler(req, res) {
     }
 
     // 2. Prepare the variables from Environment Variables
-    const apiKey = process.env.ARKESEL_API_KEY; // You generated this from the "Generate new key" button
-    const senderId = process.env.ARKESEL_SENDER_ID || "Arkesel"; // Fallback to "Arkesel" if not set
+    const apiKey = process.env.ARKESEL_API_KEY;
+    // If sender ID isn't set, use "Arkesel" as a fallback (which works without approval)
+    const senderId = process.env.ARKESEL_SENDER_ID || "Arkesel";
 
-    // The exact message
     const message = `Hi ${name}, we've received your interest. Our team will reply on WhatsApp shortly. - SkyTech Ghana`;
 
-    // 3. Build the URL with Query Parameters (Since Arkesel uses this format)
+    // 3. Build the URL with Query Parameters
     const arkeselUrl = new URL("https://sms.arkesel.com/sms/api");
     arkeselUrl.searchParams.append("action", "send-sms");
     arkeselUrl.searchParams.append("api_key", apiKey);
@@ -30,16 +29,18 @@ export default async function handler(req, res) {
     arkeselUrl.searchParams.append("from", senderId);
     arkeselUrl.searchParams.append("sms", message);
 
-    // 4. Send the request to Arkesel
+    console.log("Attempting to send to:", arkeselUrl.toString());
+
+    // 4. Send the request to Arkesel using native fetch
     const response = await fetch(arkeselUrl.toString(), {
-      method: "POST", // The dashboard says this is a POST
+      method: "POST",
       headers: {
-        "Content-Type": "application/x-www-form-urlencoded", // Required for this type of API
+        "Content-Type": "application/x-www-form-urlencoded",
       },
     });
 
-    // 5. Get the response
-    const data = await response.text(); // They return plain text, not JSON
+    // 5. Get the response (Arkesel returns plain text)
+    const data = await response.text();
 
     // 6. Send success back to the website
     return res
